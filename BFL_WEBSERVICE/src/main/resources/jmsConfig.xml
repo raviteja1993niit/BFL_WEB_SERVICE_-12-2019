@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/jms
+                     http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+                     
+<!-- 	<bean id="aqConnectionFactoryInitialiser"
+		class="posidex.aqjms.spring.OracleAqConnectionFactoryInitialiser">
+		<property name="URL"
+			value="jdbc:oracle:thin:@192.168.1.148:1524:pdborcl" />
+		<property name="userName" value="bajaj_multibase" />
+		<property name="password" value="EnshveFKLi0=" />
+	</bean>
+
+	<bean id="aqConnectionFactory"
+		factory-bean="aqConnectionFactoryInitialiser"
+		factory-method="createConnectionFactory" />
+
+	<bean id="PSX_NSP_PM_QUEUE"
+		class="posidex.aqjms.spring.OracleAqDestinationFactoryBean">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="queueName" value="PSX_NSP_PM_QUEUE" />
+		<property name="queueUser" value="bajaj_multibase" />
+	</bean>
+	<bean id="jmsTemplate"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="defaultDestination" ref="PSX_NSP_PM_QUEUE" />
+		<property name="receiveTimeout" value="30000" />
+	</bean>
+	 -->
+	<!-- <bean id="PSX_NSP_PM_QUEUE_2"
+		class="posidex.aqjms.spring.OracleAqDestinationFactoryBean">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="queueName" value="PSX_NSP_PM_QUEUE_2" />
+		<property name="queueUser" value="bajaj_multibase" />
+	</bean>
+	<bean id="jmsTemplate2"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="defaultDestination" ref="PSX_NSP_PM_QUEUE_2" />
+		<property name="receiveTimeout" value="30000" />
+	</bean>
+	
+	<bean id="PSX_NSP_EVENT_QUEUE"
+		class="posidex.aqjms.spring.OracleAqDestinationFactoryBean">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="queueName" value="PSX_NSP_EVENT_QUEUE" />
+		<property name="queueUser" value="bajaj_multibase" />
+	</bean>
+	<bean id="jmsTemplate3"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="defaultDestination" ref="PSX_NSP_EVENT_QUEUE" />
+		<property name="receiveTimeout" value="30000" />
+	</bean>
+	
+	<bean id="PSX_NSP_EVENT_QUEUE_2"
+		class="posidex.aqjms.spring.OracleAqDestinationFactoryBean">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="queueName" value="PSX_NSP_EVENT_QUEUE_2" />
+		<property name="queueUser" value="bajaj_multibase" />
+	</bean>
+	<bean id="jmsTemplate4"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="defaultDestination" ref="PSX_NSP_EVENT_QUEUE_2" />
+		<property name="receiveTimeout" value="30000" />
+	</bean>
+	
+	<bean id="FRAUD_DATA_QUEUE_1"
+		class="posidex.aqjms.spring.OracleAqDestinationFactoryBean">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="queueName" value="FRAUD_DATA_QUEUE_1" />
+		<property name="queueUser" value="bajaj_multibase" />
+	</bean>
+	<bean id="jmsTemplate5"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="defaultDestination" ref="FRAUD_DATA_QUEUE_1" />
+		<property name="receiveTimeout" value="30000" />
+	</bean>
+	
+	<bean id="FRAUD_DATA_QUEUE_2"
+		class="posidex.aqjms.spring.OracleAqDestinationFactoryBean">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="queueName" value="FRAUD_DATA_QUEUE_2" />
+		<property name="queueUser" value="bajaj_multibase" />
+	</bean>
+	<bean id="jmsTemplate6"
+		class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="aqConnectionFactory" />
+		<property name="defaultDestination" ref="FRAUD_DATA_QUEUE_2" />
+		<property name="receiveTimeout" value="30000" />
+	</bean>
+-->
+
+
+</beans>
