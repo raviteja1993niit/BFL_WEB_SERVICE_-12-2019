@@ -1,0 +1,17 @@
+#csv{
+   margin-left:140px;
+}
+.neg_upload input
+  {
+    border: 2px solid #ccc;
+    height: 30px;
+    padding: 3px;
+    position: relative;
+  }
+  #button {
+    position: relative;
+    float: right;
+  }
+  #modalcolor {
+    background-color:steelblue;
+  }

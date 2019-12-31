@@ -1,0 +1,116 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-lg-4 col-md-4 ml-10">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <header class="content__title mb-0 mt-2">
+            <h1 class="text-primary">Eod File Statistics</h1>
+          </header>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div *ngIf=!isLoading>
+        <div class="card p-3 mb-0">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example3" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover mt-1 table-condensed table-sm"
+                    role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>BATCH ID</th>
+                        <th>PROCESS TYPE</th>
+                        <th>FILE NAME</th>
+                        <th>SOURCE SYSTEM</th>
+                        <th>INSERT TIME</th>
+                        <th>TOTAL COUNT</th>
+                        <th>IMPORT COUNT</th>
+                        <th>ERROR COUNT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let eodDto of EodfilestatusDTO">
+                        <td>{{eodDto.batchId}}</td>
+                        <td>{{eodDto.process_type}}</td>
+                        <td>{{eodDto.fileName}}</td>
+                        <td>{{eodDto.sourceSystem}}</td>
+                        <td>{{eodDto.insertTs}}</td>
+                        <td>{{eodDto.totalCount}}</td>
+                        <td>{{eodDto.importCount}}</td>  
+                        <!-- <td>{{eodDto.errorCount}}</td> -->
+
+                        <td >
+                          <span *ngIf="eodDto.errorCount == 0 ">
+                             {{eodDto.errorCount}}
+                          </span>
+                          <span *ngIf="eodDto.errorCount> 0 ">
+                              <a  (click)="getErrorData(eodDto.batchId)"><u><font color='red'>{{eodDto.errorCount}}</font></u></a>
+                         <!-- <a ng-click="getErrorData(eodDto.batchId)"><u>{{eodDto.errorCount}}</u></a> -->
+                        </span>
+                        </td>
+                          <!-- 
+                            *ngIf="bullSliderNumber > 0"
+                            <td> <!-- <a class="text-danger mr-4" title="Results Download" routerLinkActive="active" (click)="resultdownload()">
+                        <i class="zmdi zmdi-collection-pdf"></i>
+                      </a> -->
+                         <!--  <a class="text-primary mr-4" title="Results Navigate" routerLinkActive="active" (click)="bulkUploadResult(bulkDto.psxbatchId, null)">
+                            <i class="fa fa-external-link"></i>
+                          </a>
+                          <a class="text-success" title="Re Process" routerLinkActive="active" (click)="reprocess(bulkDto.psxbatchId)">
+                            <i class="fa fa-retweet"></i>
+                          </a>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="state">
+            <div class="col-lg-12 col-md-12">
+              <header class="content__title mb-0 mt-2">
+                <h1 class="text-primary">Error Records Statistics</h1>
+              </header>
+            </div>
+          </div>
+          <div class="row" *ngIf="state">
+              
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example3" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover mt-1 table-condensed table-sm wrap"
+                    role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>PSX_BATCH_ID</th>
+                        <th>INSERT_TIME</th>
+                        <th>RECORD</th>
+                        <th>ERROR_DESCRIPTION</th>
+                        <!-- <th>CUSTOMER_NO</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let errorDto of Error_Records_Info_T">
+                        <td>{{errorDto.psx_batch_id}}</td>
+                        <td>{{errorDto.insert_ts}}</td>
+                        <td><div style="overflow: auto; width: 400px; white-space: nowrap;">{{errorDto.record}}</div></td>
+                        <td><div style="overflow: auto; width: 400px; white-space: nowrap;">{{errorDto.error_description}}</div></td>
+                        <!-- <td>{{errorDto.customer_no}}</td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+</div>
+</div>
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+
+.table thead th { background:#326488; }
+.dataTables_filter {
+    display: none !important; 
+    }
+.table thead th{ background: #3a6d90; color: #fff;}
+.paginate_button.current{ background-color: #3a6d90 !important;}
+.table-responsive{ overflow-x: auto;}

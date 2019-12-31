@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+<section>
+  <div class="container-fluid">
+    <div class="row p-3">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-10">
+
+        <div class="card">
+          <div class="card-header">
+            <!-- <h1 class="card-title text-uppercase 1text-primary" style="font-weight:500;color:#b15b59">Property Input
+            </h1> -->
+            <div class="col-lg-8 col-md-8">
+                <header class="content__title mb-0">
+                    <h1 class="text-primary">Negative Area Upload and Download  </h1>
+                </header>
+                </div> 
+          </div>
+          <div class="card-block">
+            <form [formGroup] = "uploadForm" (ngSubmit)="uploadNegativeEodFile()" enctype='multipart/form-data'> 
+              <fieldset>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        
+                  </div>
+
+                  <div class="col-lg-8 col-md-8 col-sm-8 ">
+                      <div class="form-group form-group--float mt-0 mb-0">
+                          <div class="neg_upload">
+                      <input type="file"
+                             id="file" name="file" 
+                             (change)="handleFileInput($event.target.files)">
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <button class="btn btn-primary mat_spinner mt-4"  value="primary" data-toggle="modal" data-target="#myModal">
+                                Upload File
+                              </button> 
+                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                             <div id="button">
+                             <a [routerLink]="['/negativeupload']" (click)="downloadCSVFile()">
+                              <button class="btn btn-success mat_spinner mt-4"  value="primary" style="float: right">  
+                              Download</button></a> 
+                            </div>
+                  </div>
+                </div>
+               
+              </div>
+                  
+                </div>
+                <div class="modal fade" id="myModal" role="dialog" ng-show="status">
+                    <div class="modal-dialog modal-sm" >
+                      <div class="modal-content" >
+                        <div class="modal-header" id="modalcolor" style="height:45px; color:white;">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h6 class="modal-title" style="color:white;">NEGATIVE AREA UPLOAD</h6>
+                        </div>
+                        <div class="modal-body">
+                            <p *ngIf="!status" style="color:red; text-align: center">{{errorMsg}}</p>
+                          <p *ngIf="status" style="color:green; text-align: center">Negative Area File Uploaded Successfully for BATCH_ID : {{batchidpop}}</p>
+                        </div>
+                        <div class="modal-footer" id="modalcolor" style="height:10px;">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+  
+              </fieldset>
+              </form>
+             
+             </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

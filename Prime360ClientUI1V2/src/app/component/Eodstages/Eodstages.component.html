@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-lg-4 col-md-4 ml-10">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <header class="content__title mb-0 mt-2">
+            <h1 class="text-primary">Eod stages Statistics</h1>
+          </header>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div *ngIf=!isLoading>
+        <div class="card p-3 mb-0">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example3" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover mt-1 table-condensed table-sm"
+                    role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <!-- <th>S.NO</th> -->
+                        <th>EOD_BATCH_ID</th>
+                      <th>BATCH_IDs</th>
+                        <th>STATUS</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of intitialData">
+                        <td>{{data.eodbatchid}}</td>   
+                        <td>{{data.batchIdsList}}</td>
+                        <td >
+                              <a  (click)="getEodstagesDTO(data.eodbatchid)"><u><font color='red'>{{"show status"}}</font></u></a>
+                        </td>   
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="state">
+            <div class="col-lg-12 col-md-12">
+              <header class="content__title mb-0 mt-2">
+                <h1 class="text-primary">Eod stage Statistics</h1>
+              </header>
+            </div>
+          </div>
+          <div class="row" *ngIf="state">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example3" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover mt-1 table-condensed table-sm wrap"
+                    role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>EOD_BATCH_ID</th>
+                        <th>STAGE</th>
+                        <th>STAGE DESCRIPTION</th>
+                        <th>NODE1_STATUS</th>
+                        <th>NODE2_STATUS</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let eodStageDto of EodstagesDTO">
+                        <td>{{eodStageDto.eodbatchid}}</td>
+                        <td>{{eodStageDto.stage}}</td>
+                        <td>{{eodStageDto.stagedescription}}</td>
+                        <td>{{eodStageDto.node1status}}</td>
+                        <td>{{eodStageDto.node2status}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+</div>
+</div>
+</div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

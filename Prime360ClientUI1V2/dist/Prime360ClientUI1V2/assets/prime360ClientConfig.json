@@ -1,0 +1,11 @@
+[
+    {
+        "name": "APP_BASE_URL",
+        "url": "http://192.168.1.114:8088/"
+    },
+    {
+        "name": "APP_ADMIN_URL",
+        "url": "http://192.168.1.114:8060/prime360-admin/"
+    }
+]
+

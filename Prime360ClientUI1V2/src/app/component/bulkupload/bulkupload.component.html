@@ -1,0 +1,113 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 ml-10">
+      <div class="row">
+        <div class="col-lg-8 col-md-8">
+          <header class="content__title mb-0">
+            <h1 class="text-primary">Bulk Upload For Client</h1>
+          </header>
+          <!-- <div *ngFor="let profileDetails of profileEntities">
+            {{profileDetails.profileIdentity.profileId}} {{ profileDetails.profileName }}
+          </div> -->
+        </div>
+        <div class="col-lg-3 col-md-3" *ngIf="loadTable">
+          <div class="form-group form-group--select mb-0">
+            <div class="select select_profile_select">
+              <select class="form-control select_profile" id="profileId" (change)="getProfileId($event.target.value)">
+                <option value="-1" selected="true">Select Profile</option>
+                <option *ngFor="let profileDetails of profileEntities" [value]="profileDetails.profileIdentity.profileId">{{ profileDetails.profileName }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-1 col-md-1">
+          <button type="button" (click)="getHeader();" class="btn btn-next btn-info waves-effect float-right">
+            <i class="zmdi zmdi-arrow-right mr-1"></i>Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2" *ngIf="loadTable">
+    <div class="col-lg-12 col-md-12">
+      <div class="card p-3 mb-0">
+        <div class="row">
+          <div class="col-lg-3 col-md-3">
+            <div class="form-group form-group--select mb-0">
+              <div class="select select_bulk_select" id="paramValue">
+                <select class="form-control select_bulk" id="tableName" [(ngModel)]="bulk_table">
+                  <option selected="true" value="-1" disabled>Select any one</option>
+                  <option id="table_select" value="{{item}}" *ngFor="let item of tableNames">{{item}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <div class="form-group form-group--float mt-0 mb-0">
+              <div class="bulk_upload">
+                <input id="file_upload" type="file" (change)="selectFile($event)" class="form-control form-control-md">
+                <i class="form-group__bar"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <button type="button" (click)="submitFile()" class="btn btn-next btn-primary waves-effect">
+              Upload
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-1 bulk_datatable">
+    <div class="col-lg-12 col-md-12">
+      <div class="row mb-0 p-3 ">
+        <div class="col-lg-12 col-md-12 p-0 ">
+          <ul class="nav nav-tabs  nav-tabs--left m-0" role="navigation">
+            <li *ngFor="let item of bulkupload; let i = index" class="nav-item">
+              <div *ngIf = " i == currentTabIndex">
+                  <a aria-controls="Table1" id="tab{{i}}" class="nav-link active show" data-toggle="tab" (click)="onSubmit(item)" href="#example1"
+                  role="tab" aria-selected="true">{{item}}</a>
+              </div>
+              <div *ngIf = " i != currentTabIndex">
+                  <a aria-controls="Table1" id="tab{{i}}" class="nav-link" data-toggle="tab" (click)="onSubmit(item)" href="#example1"
+                  role="tab" aria-selected="true">{{item}}</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-12 col-md-12 p-0">
+          <div class="tab-content p-0">
+            <div class="tab-pane fade show" id="table1" role="tabpanel">
+              <div class="card p-3" *ngIf=!isLoading>
+                <div class="table-responsive" style="overflow:auto;">
+                  <div id="data-table_wrapper" class="">
+                    <table id="example1" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable  table-hover mt-1 table-condensed table-sm"
+                      role="grid" aria-describedby="data-table_info">
+                      <thead class="thead-inverse" *ngFor="let headVal of fileUploadedData; index as i">
+                        <tr *ngIf=" i == 0">
+                          <th *ngFor="let head of headVal">
+                            {{head}}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let columnsVal of fileUploadedData; index as i">
+                          <td *ngFor="let rowsVal of columnsVal">
+                            <div *ngIf="i > 0">
+                              {{rowsVal}}
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

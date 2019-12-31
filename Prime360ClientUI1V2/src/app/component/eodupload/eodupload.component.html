@@ -1,0 +1,77 @@
+<app-navbar></app-navbar>
+<section>
+  <div class="container-fluid">
+    <div class="row p-3">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-10">
+
+        <div class="card">
+          <div class="card-header">
+              <div class="col-lg-8 col-md-8">
+                  <header class="content__title mb-0">
+                      <h1 class="text-primary">Negative Base Upload</h1>
+                  </header>
+                  </div> 
+            <!-- <h1 class="card-title text-uppercase 1text-primary" style="font-weight:500;color:#b15b59">Property Input
+            </h1> -->
+          </div>
+          <div class="card-block">
+            <form [formGroup] = "uploadForm" (ngSubmit)="uploadEodFile()" enctype='multipart/form-data'> 
+              <fieldset>
+                <div class="row">
+                  <div class="col-lg-4 col-md-4 col-sm-4 ">
+                    <div class="form-group form-group--float mb-0">
+                        <div class="select select_profile_select">
+                      <!-- <select type="text" [(ngModel)]="selectedDataSource" formControlName="dataSource" name="dataSource" (change)="setSelectedStatus(selectedDataSource)"  class="form-control form-control-md"> -->
+                        <select class="form-control address_select" id="dataSource" (change)="setSelectedStatus($event.target.value)">
+                        <option value="-1" selected="true" selected="selected">Select DataSource..</option>
+                        <option *ngFor="let value of  dataSources">
+                          <!-- {{value.data}} -->
+                          {{value}}
+                        </option>
+                      </select>
+                      </div>
+                      <i class="form-group__bar"></i>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4 ">
+                      <div class="form-group form-group--float mt-0 mb-0">
+                      <div class="eod_upload">
+                      <input type="file"
+                             id="file" name="file" 
+                             (change)="handleFileInput($event.target.files)">
+                             <i class="form-group__bar"></i>
+                             </div>
+                             </div>
+                  </div>
+                  <div class="col-lg-3 col-md-3">
+                    <button class="btn btn-primary mat_spinner mt-4"  value="primary" data-toggle="modal" data-target="#myModal"> 
+                      Upload File
+                    </button>
+                  </div>
+                  <div class="modal fade" id="myModal" role="dialog" ng-show="status">
+                      <div class="modal-dialog modal-sm" >
+                        <div class="modal-content">
+                          <div class="modal-header" id="modalcolor" style="hetght=10px; color:white;" >
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h6 class="modal-title" style="color:white; text-align: center">NEGATIVE BASE UPLOAD</h6>
+                          </div>
+                          <div class="modal-body">
+                              <p *ngIf="!status" style="color:red;">{{errorMsg}}</p>
+                            <p *ngIf="status" style="color:green; text-align: center">Negative Base File Uploaded Successfully for BATCH_ID : {{batchidpop}}</p>
+                          </div>
+                          <div class="modal-footer" id="modalcolor" style="hetght=1px;">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </fieldset>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

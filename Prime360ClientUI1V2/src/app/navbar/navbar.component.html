@@ -1,0 +1,105 @@
+<header class="header" style="background:#5a8caf;">
+  <div class="navigation-trigger hidden-xl-up" data-ma-action="aside-open" data-ma-target=".sidebar">
+    <div class="navigation-trigger__inner">
+      <i class="navigation-trigger__line"></i>
+      <i class="navigation-trigger__line"></i>
+      <i class="navigation-trigger__line"></i>
+    </div>
+  </div>
+
+  <div class="header__logo hidden-sm-down">
+    <h1>
+      <img src="assets/logo.png">
+    </h1>
+  </div>
+
+  <ul class="top-nav">
+
+
+    <!-- <li class="dropdown hidden-xs-down mt-1" *ngFor="let nev of navbarParentDto">
+      <a routerLinkActive="active" [routerLink]="['/bulk-upload']" class="dropdown-item ">
+        <i class="zmdi zmdi-view-dashboard mr-3"></i>BULK UPLOAD</a>
+    </li> -->
+    <!-- <li class="dropdown hidden-xs-down mt-1" >
+      <a routerLinkActive="active" [routerLink]="['/datastaticscomponent']" class="dropdown-item ">
+        <i class="zmdi zmdi-view-dashboard mr-3"></i>FILE STATUS</a>
+    </li> -->
+
+     <li class="dropdown hidden-xs-down mt-1" *ngFor="let nev of navbarParentDto">
+      <a href="" class="nav-link user_management" data-toggle="dropdown" aria-expanded="false">
+        <i class="zmdi zmdi-view-dashboard mr-3"></i>{{nev.parentMenu}}
+        <i class="zmdi zmdi-caret-down ml-2"></i>
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-right">
+        <a *ngFor="let menu of nev.menuList" routerLinkActive="active" routerLink="/{{menu.menuHref}}" class="dropdown-item ">
+          <i class="{{menu.menuIcon}}"></i>{{menu.menuName}}</a>
+       
+      </div>
+    </li> 
+
+
+    <li class="dropdown hidden-xs-down mt-1" >
+      <!-- <div class="row"> -->
+      <a href=""  class="nav-link user_management" data-toggle="dropdown" aria-expanded="false">
+          <i class="zmdi zmdi-view-dashboard mr-3"></i>NEGATIVE BASE UPLOAD
+          <i class="zmdi zmdi-caret-down ml-2"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="eodupload" routerLinkActive="active" routerLink="/eodupload" class="dropdown-item">
+              <i class="fa fa-upload" style="font-size:15px;color:black"></i>&nbsp;<font color="black"> Upload</font>
+            </a>
+          <!-- <a href="eodstatistics" routerLinkActive="active" routerLink="/eodstatistics" class="nav-link user_management" >
+            <i class="fa fa-bar-chart" style="font-size:15px;color:black"></i>&nbsp;<font color="black">FILE STATISTICS</font>
+            </a> -->
+        </div>
+      </li>
+      <li class="dropdown hidden-xs-down mt-1" >
+          <a href=""  class="nav-link user_management" data-toggle="dropdown" aria-expanded="false">
+              <i class="zmdi zmdi-view-dashboard mr-3"></i>Negative Area Upload 
+              <i class="zmdi zmdi-caret-down ml-2"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">     
+        <a href="negativeupload" routerLinkActive="active" routerLink="/negativeupload" class="dropdown-item">
+          <i class="fa fa-upload" style="font-size:15px;color:black"></i>&nbsp;<font color="black">Upload</font>
+        </a>
+     </div>
+      </li>
+      <li class="dropdown hidden-xs-down mt-1" >
+          <a href="eodstatistics" routerLinkActive="active" routerLink="/eodstatistics" class="nav-link user_management" >
+             <i class="fa fa-bar-chart" style="font-size:15px;color:white"></i>&nbsp;IMPORT STATISTICS
+            </a>
+      </li>
+       <li class="dropdown hidden-xs-down mt-1" >
+        <a href="eodstages" routerLinkActive="active" routerLink="/eodstages" class="nav-link user_management" >
+           <i class="fa fa-bar-chart" style="font-size:15px;color:white"></i>&nbsp;EOD STAGES
+          </a>
+    </li> 
+    <li class="dropdown hidden-xs-down float-right">
+      <a href="" class="login_details" data-toggle="dropdown" aria-expanded="false">
+        <i class="zmdi zmdi-apps" style="font-size:19px;"></i>
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-right" style="min-width: 14rem;padding: 3px;font-size:13px;">
+        <a class="nav-link" (click)="logout()">
+          <i class="fa fa-power-off mr-2"></i>
+          <span style="vertical-align:top !important;text-transform:uppercase;">Logout</span>
+        </a>
+        <a class="nav-link" style="color:#707070;" [routerLink]="['/resetpassword']">
+          <i class="fa fa-key mr-2"></i>
+          <span style="vertical-align:top !important;text-transform:uppercase;">Reset Password</span>
+        </a>
+      </div>
+    </li>
+    <li class="mr-3 mt-1 float-right mt-2">
+      <i class="zmdi zmdi-time mr-2"></i>Last Login {{currentDate | date:'medium'}}
+    </li>
+    <!-- <li class="mr-3 mt-1 float-right mt-2">
+      <i class="zmdi zmdi-account mr-2"></i>Welcome
+      <strong>{{currentUser.userName}}</strong>
+    </li> -->
+
+
+
+  </ul>
+</header>

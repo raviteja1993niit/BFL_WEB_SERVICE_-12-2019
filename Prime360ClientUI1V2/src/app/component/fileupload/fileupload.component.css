@@ -1,0 +1,22 @@
+.file_txt
+{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 3px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.fileupload_table tbody tr:nth-child(1)
+{
+    display: none;
+}
+.fileupload_next_button
+{
+    float:right;
+    pointer-events: none;
+}
+.fileupload_datatable
+{
+    display: none;
+}

@@ -1,0 +1,402 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-lg-4 col-md-4 ml-10">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <header class="content__title mb-0 mt-2">
+            <h1 class="text-primary">Bulk Upload Result</h1>
+          </header>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div *ngIf='showInputTable'>
+        <div class="row">
+          <div class="col-lg-9 col-md-9">
+            <label class="text-primary">Input</label>
+          </div>
+          <div class="col-lg-3 col-md-3">
+            <div class="form-group form-group--select mb-2" style="width:100%;height:27px;">
+              <label class="text-primary" style="width:15%;float:left;margin-top: 0.4rem;">Select</label>
+              <div class="select" style="width:85%;float:left;">
+                <select class="form-control" id="ddlViewBy" (change)="getBulkUploadDetails(currentPsxBatchId, $event.target.value)">
+                  <option value="" selected="true" disabled="disabled">Select any one</option>
+                  <option *ngFor="let pageNo of totalPageCount" [ngValue]="pageNo">{{pageNo}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf=!isLoading>
+          <div class="card p-3 mb-3">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table-responsive">
+                  <div id="data-table_wrapper" class="">
+                    <table id="example3" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover table-condensed table-sm"
+                      role="grid" aria-describedby="data-table_info">
+
+                      <thead class="thead-inverse">
+                        <tr>
+                          <th>Request Id</th>
+                          <th>Name</th>
+                          <th>DOB</th>
+                          <th>Record Type</th>
+                          <th>Match Type</th>
+                          <th>Scale Type</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- <tr *ngFor="let bulkdto of retValue.resultsList" *ngIf="bulkdto.recordType == 'INPUT'"> -->
+                        <tr *ngFor="let bulkdto of bulkInputArray">
+                          <td>{{bulkdto.psxId}}</td>
+                          <td>{{bulkdto.name}}</td>
+                          <!-- <td>{{bulkdto.dob1| date:date:'yyyy-MM-dd'}}</td> -->
+                          <td>{{bulkdto.dob1}}</td>
+                          <td>{{bulkdto.recordType}}</td>
+                          <td>{{bulkdto.matchType}}</td>
+                          <td>{{bulkdto.scaleType}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf='showResultsTable'>
+        <div class="row">
+          <div class="col-md-3 col-lg-3">
+            <label class="text-primary">Results</label>
+          </div>
+          <div class="col-md-9 col-lg-9">
+            <div class="dataTables_paginate paging_simple_numbers mb-2 float-right" id="example1_paginate">
+              <span>
+                <button class="btn btn-primary waves-effect mr-2" type="button" (click)="bulkPrevious()" title="Result" *ngIf="bullSliderNumber > 0">
+                  <i class="zmdi zmdi-chevron-left"></i><i class="zmdi zmdi-chevron-left"></i></button>
+              </span>
+              <span>
+                <button class="btn btn-info waves-effect" type="button" (click)="bulkNext()" title="Result" *ngIf="bullSliderNumber < 9">
+                  <i class="zmdi zmdi-chevron-right"></i><i class="zmdi zmdi-chevron-right"></i></button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- <div *ngIf=!isLoading>
+          <div class="card p-3">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="table-responsive">
+                  <table id="example3" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover table-condensed table-sm"
+                    role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Psx Id</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <th>Record Type</th>
+                        <th>Match Type</th>
+                        <th>Scale Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let bulkdto of retValue.resultsList">
+                        <td>{{bulkdto.psxId}}</td>
+                        <td>{{bulkdto.name}}</td>
+                        <td>{{bulkdto.dob1| date:date:'yyyy-MM-dd'}}</td>
+                        <td>{{bulkdto.recordType}}</td>
+                        <td>{{bulkdto.matchType}}</td>
+                        <td>{{bulkdto.scaleType}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div *ngIf=!isLoading>
+          <div class="card p-3">
+            <!-- 0 -->
+            <div *ngIf="bullSliderNumber === 0">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Psx Id</th>
+                        <th>Request Id</th>
+                        <th>Psx Batch Id</th>
+                        <th>Record Type</th>
+                        <th>Lchg Time</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.psxId}}</td>
+                        <td>{{dto.requestId}}</td>
+                        <td>{{dto.psxBatchId}}</td>
+                        <td>{{dto.recordType}}</td>
+                        <td>{{dto.lchgTime}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 1 -->
+            <div *ngIf="bullSliderNumber === 1">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Name</th>
+                        <th>Mother Name</th>
+                        <th>Father Name</th>
+                        <th>Spouse Name</th>
+                        <th>DOB1</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.name}}</td>
+                        <td>{{dto.motherName}}</td>
+                        <td>{{dto.fatherName}}</td>
+                        <td>{{dto.spouseName}}</td>
+                        <td>{{dto.dob1}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 2 -->
+            <div *ngIf="bullSliderNumber === 2">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>DOB2</th>
+                        <th>DOB3</th>
+                        <th>DOB4</th>
+                        <th>Equality1</th>
+                        <th>Equality2</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.dob2}}</td>
+                        <td>{{dto.dob3}}</td>
+                        <td>{{dto.dob4}}</td>
+                        <td>{{dto.equality1}}</td>
+                        <td>{{dto.equality2}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 3 -->
+            <div *ngIf="bullSliderNumber === 3">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Equality3</th>
+                        <th>Equality4</th>
+                        <th>Flag1</th>
+                        <th>Flag2</th>
+                        <th>Flag3</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.equality3}}</td>
+                        <td>{{dto.equality4}}</td>
+                        <td>{{dto.flag1}}</td>
+                        <td>{{dto.flag2}}</td>
+                        <td>{{dto.flag3}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 4 -->
+            <div *ngIf="bullSliderNumber === 4">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Flag4</th>
+                        <th>Office Address</th>
+                        <th>Office City</th>
+                        <th>Office Pin</th>
+                        <th>Permanent Address</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.flag4}}</td>
+                        <td>{{dto.officeAddress}}</td>
+                        <td>{{dto.officeCity}}</td>
+                        <td>{{dto.officePin}}</td>
+                        <td>{{dto.permanentAddress}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 5 -->
+            <div *ngIf="bullSliderNumber === 5">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Permanent City</th>
+                        <th>Permanent Pin</th>
+                        <th>Residence Address</th>
+                        <th>Residence City</th>
+                        <th>Residence Pin</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.permanentCity}}</td>
+                        <td>{{dto.permanentPin}}</td>
+                        <td>{{dto.residenceAddress}}</td>
+                        <td>{{dto.residenceCity}}</td>
+                        <td>{{dto.residencePin}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 6 -->
+            <div *ngIf="bullSliderNumber === 6">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Temporary Address</th>
+                        <th>Temporary City</th>
+                        <th>Temporary Pin</th>
+                        <th>Office Email</th>
+                        <th>Permanent Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.temporaryAddress}}</td>
+                        <td>{{dto.temporaryCity}}</td>
+                        <td>{{dto.temporaryPin}}</td>
+                        <td>{{dto.officeEmail}}</td>
+                        <td>{{dto.permanentEmail}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 7 -->
+            <div *ngIf="bullSliderNumber === 7">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Residence Email</th>
+                        <th>Temporary Email</th>
+                        <th>Office Phone</th>
+                        <th>Permanent Phone</th>
+                        <th>Residence Phone</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.residenceEmail}}</td>
+                        <td>{{dto.temporaryEmail}}</td>
+                        <td>{{dto.officePhone}}</td>
+                        <td>{{dto.permanentPhone}}</td>
+                        <td>{{dto.residencePhone}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 8 -->
+            <div *ngIf="bullSliderNumber === 8">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Temporary Phone</th>
+                        <th>Office Street</th>
+                        <th>Country</th>
+                        <th>Office Street Number</th>
+                        <th>Permanent Street Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.temporaryPhone}}</td>
+                        <td>{{dto.officeStreet}}</td>
+                        <td>{{dto.country}}</td>
+                        <td>{{dto.officeStreetNumber}}</td>
+                        <td>{{dto.permanentStreetNumber}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- 9 -->
+            <div *ngIf="bullSliderNumber === 9">
+              <div class="table-responsive">
+                <div id="data-table_wrapper" class="">
+                  <table id="example2" datatable [dtOptions]="dtOptions" class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Residence Street Number</th>
+                        <th>Temp Street Number</th>
+                        <th>Temp Street</th>
+                        <th>Match Type</th>
+                        <th>Scale Type</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let dto of retValue.resultsList">
+                        <td>{{dto.residenceStreetNumber}}</td>
+                        <td>{{dto.tempStreetNumber}}</td>
+                        <td>{{dto.tempStreet}}</td>
+                        <td>{{dto.matchType}}</td>
+                        <td>{{dto.scaleType}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

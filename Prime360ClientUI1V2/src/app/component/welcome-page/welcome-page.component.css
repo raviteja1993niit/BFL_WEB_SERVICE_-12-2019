@@ -1,0 +1,25 @@
+.welcome_page
+{
+    width: 60%;
+    margin: 15% auto;
+}
+.welcome_page_logo
+{
+
+}
+.welcome_page_logo img
+{
+    width: 14%;
+} 
+.welcome_page_heading
+{
+    font-size: 20px;
+    margin: 25px 0px 20px;
+    text-transform: uppercase;
+}
+.welcome_page_description
+{
+    text-align: center;
+    font-size: 16px;
+    word-spacing: 5px;
+}

@@ -1,0 +1,47 @@
+.form-group--float > label {
+    top: -15px;
+}
+.menu ul li
+{
+    list-style: none;
+    display: inline-block;
+    padding:9px 15px;
+    margin-left: 5px;
+}
+.menu ul li:hover
+{
+    border-bottom: 2px solid #2196f3;
+}
+.active
+{
+    border-bottom: 2px solid #2196f3;
+}
+.menu ul li:nth-child(1)
+{
+    margin-left: 0px;
+}
+.menu ul li a
+{
+    color:#707070;
+}
+#demographics
+{
+    display: block;
+}
+#contact,#address,#email
+{
+    display: none;
+}
+.address_select,.equality_label
+{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0;
+    height: 30px !important;
+    padding-left: 7px;
+    font-size: 12px;
+}
+.select:before,.equality_label:before
+{
+    bottom: 1px !important;
+}

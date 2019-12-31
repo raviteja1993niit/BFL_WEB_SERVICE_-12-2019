@@ -1,0 +1,75 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 ml-10">
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+          <header class="content__title mb-0 mt-2">
+            <h1 class="text-primary">File Upload</h1>
+          </header>
+        </div>
+        <div class="col-lg-9 col-md-9 text-right">
+          <button type="button" [routerLink]="['/bulkupload']" class="mt-2 mr-2 btn btn-primary waves-effect">
+            <i class="zmdi zmdi-arrow-left mr-2"></i>Previous</button>
+          <button type="button" class="btn btn-success mt-2 waves-effect" (click)="saveUploadData()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-lg-12 col-md-12">
+        <div class="row mb-0 p-3 ">
+          <div class="col-lg-12 col-md-12 p-0 ">
+            <ul class="nav nav-tabs nav-tabs--left m-0" role="navigation">
+              <li class="nav-item" *ngFor="let mappingTableNames of mappingTableArray; let i = index">
+                <a aria-controls="Demographics" class="nav-link show" id="tab{{i+1}}" data-toggle="tab" href="#demographics" role="tab" (click)="onSubmit(mappingTableNames.selectedTableName, i)"
+                  aria-selected="true">{{mappingTableNames.selectedTableName}}</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-12 col-md-12 p-0">
+            <!--<div class="tab-content">-->
+            <div class="tab-pane fade show" id="demographics" role="tabpanel">
+              <div *ngFor="let item of mappingTableArray">
+                <div *ngIf="item.selectedTableName === selectTableName">
+                  <div *ngIf=!isLoading>
+                    <div class="card p-3 mb-3">
+                      <div class="table-responsive">
+                        <div id="data-table_wrapper" class="">
+                          <table id="example1" datatable class="table table-sm dataTable mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+                            <thead class="thead-inverse">
+                              <tr>
+                                <th>File Column</th>
+                                <th>Display Column</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item1 of item.bulkColmappingList; index as i">
+                                <td>{{item1.headerColName}}</td>
+                                <td>
+                                  <div class="form-group form-group--select mb-0" style="width:30%;">
+                                    <div class="select select_mapping_select">
+                                      <select class="form-control select_mapping" [(ngModel)]="item.bulkColmappingList[i].displayColName">
+                                        <option style="display:none;">Select...</option>
+                                        <option *ngFor="let displayName of displayColNames" [selected]="getSelectedValue(item.bulkColmappingList[i].csvHeaderData , i)">
+                                          {{displayName}}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

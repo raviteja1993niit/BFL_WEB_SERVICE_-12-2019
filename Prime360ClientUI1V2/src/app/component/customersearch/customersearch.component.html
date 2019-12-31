@@ -1,0 +1,622 @@
+
+<app-navbar></app-navbar>
+<div class="container-fluid">
+ <div class="row mt-3 mb-0">
+ <div class="col-lg-3 col-md-3 col-sm-3">
+ <div class="menu">
+ <header class="content__title mb-0 mt-2">
+ <h1 class="text-primary">Query Interface </h1>
+ </header>
+ </div>
+ </div>
+ <div class="col-lg-7 col-md-7">
+ <p class="text-success" style="text-align: center" id="data">{{result}}</p>
+ <p class="text-danger" style="text-align: center; margin-bottom:0 !important;" id="err">{{error}}</p>
+ </div>
+ </div>
+ <div class="row mt-3 mb-0">
+ <div class="col-lg-6 col-md-6 col-sm-6">
+ <div class="menu">
+ <ul class="m-0 p-0">
+ <li class="demographics_menu active">
+ <a class="text-capitalize" (click)="demographics()">Customer</a>
+ </li>
+ <li class="address_menu">
+ <a class="text-capitalize" (click)="address()">Address</a>
+ </li>
+ <li class="contact_menu">
+ <a class="text-capitalize" (click)="contact()">Contact</a>
+ </li>
+ <li class="email_menu">
+ <a class="text-capitalize" (click)="email()">Email</a>
+ </li>
+
+ </ul>
+ </div>
+ </div>
+ <div class="col-lg-3 col-md-6 col-sm-3"></div>
+ <div class="col-lg-3 col-md-6 col-sm-3">
+ <div class="form-group float-right form-group--select mb-1" style="width:100%;">
+ <label style="width: 30%;float: left;margin-top: 5px;">Profile Names</label>
+ <div class="select" style="width: 70%;float: left;">
+ <select class="form-control address_select" id="profileId" (change)="getProfileById($event.target.value)">
+ <option value="-1" selected="true" disabled="disabled">Select ..</option>
+ <option *ngFor="let profileEntity of profileEntities" [value]="profileEntity.profileIdentity.profileId">{{ profileEntity.profileName }}</option>
+
+ </select>
+ </div>
+ </div>
+ </div>
+ </div>
+
+
+
+
+ <div class="row mt-3">
+
+ <div class="col-lg-12 col-md-12">
+
+
+ <!-- Customer form here---->
+
+ <form #myForm="ngForm" (ngSubmit)="submitData(myForm)">
+ <div class="row" id="demographics">
+ <div class="col-lg-12 col-md-12">
+ <div class="card p-3 mb-3">
+ <div class="row mb-0 ">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="name" type="text" [(ngModel)]="parameterDto.parameter0">
+ <label>Name</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Father_Name" type="text" [(ngModel)]="parameterDto.parameter1">
+ <label>Father Name</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Employer Name" type="text" [(ngModel)]="parameterDto.parameter2">
+ <label>Employer Name</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ 
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Creditcard" type="text" [(ngModel)]="parameterDto.parameter3">
+ <label> CreditCard </label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ 
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Pan" type="text" [(ngModel)]="parameterDto.parameter4">
+ <label>Pan</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input mwlFlatpickr name="d-m-Y" style="color: #464a4c; opacity: 1;"
+ class="flatpickr form-control date-picker flatpickr-input form-control--active" type="text" [(ngModel)]="parameterDto.parameter5"
+ placeholder="dd/mm/yyyy" readonly="readonly" data-date-format="d-m-Y">
+ <label>DOB</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Passport_no" type="text" [(ngModel)]="parameterDto.parameter6">
+ <label>PassportNo</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Voter_Id" type="text" [(ngModel)]="parameterDto.parameter7">
+ <label>Voter Id</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="DrvLicNo" type="text" [(ngModel)]="parameterDto.parameter8">
+ <label>DrvLicNo</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Deal_Code" type="text" [(ngModel)]="parameterDto.parameter9">
+ <label>DealCode</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Account_number" type="text" [(ngModel)]="parameterDto.parameter10">
+ <label>AccountNumber</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Tan_number" type="text" [(ngModel)]="parameterDto.parameter11">
+ <label>TANNumber</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="App_No" type="text" [(ngModel)]="parameterDto.parameter12">
+ <label>AppNo</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Segment_No" type="text" [(ngModel)]="parameterDto.parameter13">
+ <label>SegmentNo</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Customer_No" type="text" [(ngModel)]="parameterDto.parameter14">
+ <label>CustomerNo</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input mwlFlatpickr name="nspRequestDTO.dob1" style="color: #464a4c; opacity: 1;"
+ class="flatpickr form-control date-picker flatpickr-input form-control--active" type="text" [(ngModel)]="parameterDto.parameter15"
+ placeholder="dd/mm/yyyy" readonly="readonly" data-date-format="d-m-Y">
+ <label>DOI</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="CIN" type="text" [(ngModel)]="parameterDto.parameter16">
+ <label>CIN</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="DIN" type="text" [(ngModel)]="parameterDto.parameter17">
+ <label>DIN</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="AADHAR_NO" type="text" [(ngModel)]="parameterDto.parameter18">
+ <label>AADHAR NO</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="CA_NUMBER" type="text" [(ngModel)]="parameterDto.parameter19">
+ <label>CA NUMBER</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" name="Registration_no" type="text" [(ngModel)]="parameterDto.parameter20">
+ <label>REGISTRATION NO</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <fieldset class="form-group" [(ngModel)]="parameterDto.parameter21">
+ <div class="row">
+ <legend class="col-form-label col-sm-3 pt-0">Type</legend>
+ <div class="col-sm-9">
+ <label class="custom-control custom-radio">
+ <input type="radio" id="filters" class="ruletype custom-control-input" name="filters">
+ <span class="custom-control-indicator"></span>
+ <span class="custom-control-description"> Customer
+ </span>
+ </label>
+ <label class="custom-control custom-radio">
+ <input type="radio" id="filters" class="ruletype custom-control-input" name="filters">
+ <span class="custom-control-indicator"></span>
+ <span class="custom-control-description"> Applicant
+ </span>
+ </label>
+
+ </div>
+ </div>
+ </fieldset>
+ </div>
+ </div>
+
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <label for="inputState">Entity Type</label>
+ <select id="inputState" class="form-control" [(ngModel)]="parameterDto.parameter22">
+ <option selected>Select any one</option>
+ <option value="one">one</option>
+ <option value="two">two</option>
+ <option value="three">three</option>
+ </select>
+ </div>
+ </div>
+
+
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Contact form here---->
+
+ <div class="row" id="contact">
+ <div class="col-lg-12 col-md-12">
+
+ <div class="demo">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+ <div class="panel panel-default">
+ <div class="panel-heading" role="tab">
+ <h4 class="panel-title mb-0">
+ <a class="" role="button" data-toggle="collapse" data-parent="#accordion"
+ href="#landline1" aria-expanded="true" aria-controls="services">Personal Landline</a>
+
+ </h4>
+ </div>
+ <div id="landline1" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="servicesheading">
+ <div class="card p-3 mb-2">
+ <div class="row">
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ <div class="row mb-0">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_office_Address" [(ngModel)]="parameterDto.parameter33">
+ <label>Personal Landline</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter35">
+ <label>Personal StdCode1</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_office_Address" [(ngModel)]="parameterDto.parameter34">
+ <label>Personal Landline2</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_office_Address" [(ngModel)]="parameterDto.parameter36">
+ <label>Personal StdCode2</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+
+ <div class="demo">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+ <div class="panel panel-default">
+ <div class="panel-heading" role="tab">
+ <h4 class="panel-title mb-0">
+ <a class="" role="button" data-toggle="collapse" data-parent="#accordion"
+ href="#offline1" aria-expanded="true" aria-controls="services">Office Landline</a>
+
+ </h4>
+ </div>
+ <div id="offline1" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="servicesheading">
+ <div class="card p-3 mb-2">
+ <div class="row">
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ <div class="row mb-0">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="number" name="perm_office_Address" [(ngModel)]="parameterDto.parameter37">
+ <label>Off Landline1</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="number" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter39">
+ <label>Off StdCode1</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="number" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter38">
+ <label>Off Landline2</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="number" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter40">
+ <label>Off StdCode2</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+
+ <div class="demo">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+ <div class="panel panel-default">
+ <div class="panel-heading" role="tab">
+ <h4 class="panel-title mb-0">
+ <a class="" role="button" data-toggle="collapse" data-parent="#accordion"
+ href="#offline2" aria-expanded="true" aria-controls="services">Personal</a>
+
+ </h4>
+ </div>
+ <div id="offline2" class="panel-collapse " role="tabpanel" aria-labelledby="servicesheading">
+ <div class="card p-3 mb-2">
+ <div class="row">
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ <div class="row mb-0">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_office_Address" [(ngModel)]="parameterDto.parameter41">
+ <label>Personal Mobile</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter42">
+ <label>Personal CountryCode</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter43">
+ <label>Off Mobile</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter44">
+ <label>Off CountryCode</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+
+ <!-- Email form here---->
+
+
+ <div class="row" id="email">
+ <div class="col-lg-12 col-md-12">
+ <div class="demo">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+ <div class="panel panel-default">
+ <div class="panel-heading" role="tab">
+ <h4 class="panel-title mb-0">
+ <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href="#email1"
+ aria-expanded="true" aria-controls="services">Personal Email</a>
+
+ </h4>
+ </div>
+ <div id="email1" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="servicesheading">
+ <div class="card p-3 mb-2">
+ <div class="row">
+ <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+ <div class="row mb-0">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="email" name="perm_office_Address" [(ngModel)]="parameterDto.parameter45">
+ <label>PersonalEmailId</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="email" name="perm_office_Address" [(ngModel)]="parameterDto.parameter46">
+ <label>OfficeEmailId</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <!-- Address form here---->
+
+ <div class="row" id="address">
+ <div class="col-lg-12 col-md-12">
+ <div class="demo">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+ <div class="panel panel-default">
+ <div class="panel-heading" role="tab">
+ <h4 class="panel-title mb-0">
+ <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href="#permanentaddress"
+ aria-expanded="true" aria-controls="services">Permanent Address</a>
+
+ </h4>
+ </div>
+ <div id="permanentaddress" class="panel-collapse collapse show" role="tabpanel"
+ aria-labelledby="servicesheading" style="background-color:#FFF;">
+ <div class="row pb-0 p-3">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_office_Address" [(ngModel)]="parameterDto.parameter23">
+ <label>PermAddress</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Street_Number" [(ngModel)]="parameterDto.parameter24">
+ <label>PermArea</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_City" [(ngModel)]="parameterDto.parameter25">
+ <label>Perm City</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Pin" [(ngModel)]="parameterDto.parameter26">
+ <label>Perm Landmark</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="perm_Pin" [(ngModel)]="parameterDto.parameter27">
+ <label>Perm Pincde</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ <div class="demo mt-2">
+ <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+ <div class="panel panel-default">
+ <div class="panel-heading" role="tab">
+ <h4 class="panel-title mb-0">
+ <a class="" role="button" data-toggle="collapse" data-parent="#accordion" href="#officeaddress"
+ aria-expanded="true" aria-controls="services">Office Address</a>
+ </h4>
+ </div>
+ <div id="officeaddress" class="panel-collapse collapse show " role="tabpanel"
+ aria-labelledby="servicesheading" style="background-color:#FFF;">
+ <div class="row pb-0 p-3">
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="office_Address" [(ngModel)]="parameterDto.parameter28">
+ <label>OffAddress</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="Street_Number" [(ngModel)]="parameterDto.parameter29">
+ <label>OffArea</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="office_City" [(ngModel)]="parameterDto.parameter30">
+ <label>OffCity</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="office_Pin" [(ngModel)]="parameterDto.parameter31">
+ <label>OffLandmark</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ <div class="col-sm-3">
+ <div class="form-group form-group--float">
+ <input class="form-control form-control-md" type="text" name="office_Pin" [(ngModel)]="parameterDto.parameter32">
+ <label>OffPincde</label>
+ <i class="form-group__bar"></i>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+
+ <div class="row mt-3">
+ <div class="col-sm-12 text-center">
+ <button type="submit" class="btn btn-primary waves-effect mr-2">Submit</button>
+ <button type="reset" class="btn btn-info waves-effect mr-2" (click)="reset(parameterDto);">Reset</button>
+ </div>
+ </div>
+
+
+ </form>
+ </div>
+ </div>
+</div>

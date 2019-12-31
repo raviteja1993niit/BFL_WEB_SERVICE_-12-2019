@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3 mb-0">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <header class="content__title mb-0">
+        <h1 class="text-primary">Relational Search </h1>
+      </header>
+    </div>
+    <div class="col-lg-6 col-md-6">
+      <p class="text-success" style="text-align: center" id="data">{{result}}</p>
+      <p class="text-danger" style="text-align: center; margin-bottom:0 !important;" id="err">{{error}}</p>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3">
+      <div class="form-group float-right form-group--select mb-1" style="width:100%;">
+        <label style="width: 30%;float: left;margin-top: 5px;">Profile Names</label>
+        <div class="select" style="width: 70%;float: left;">
+          <select class="form-control address_select" id="profileId" (change)="getProfileById($event.target.value)">
+            <option value="-1" selected="true">Select ..</option>
+            <option *ngFor="let profileEntity of profileEntities" [value]="profileEntity.profileIdentity.profileId">{{ profileEntity.profileName }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3 mb-0">
+    <div class="col-lg-12 col-md-12">
+      <form (ngSubmit)="submitRelationalSearchRequest()">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <ul class="nav nav-tabs  nav-tabs--left m-0" role="navigation">
+              <li *ngFor="let tabs of relationalSearchDTO.tables; index as i" class="nav-item">
+                <div *ngIf="i == currentTabIndex">
+                  <a aria-controls="Table1" id="tab{{i}}" class="nav-link active show" data-toggle="tab" (click)="onTabSubmit(i, tabs.tableName)"
+                    href="#example1" role="tab" aria-selected="true">{{tabs.tableName}}</a>
+                </div>
+                <div *ngIf="i != currentTabIndex">
+                  <a aria-controls="Table1" id="tab{{i}}" class="nav-link" data-toggle="tab" (click)="onTabSubmit(i, tabs.tableName)" href="#example1"
+                    role="tab" aria-selected="true">{{tabs.tableName}}</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card p-3 mb-2">
+          <div class="row">
+            <div class="col-sm-3" *ngFor="let tabsContent of displayRelationalSearchTableDTO.relationalSearchParameter; index as j">
+              <div class="form-group form-group--float">
+                <input class="form-control form-control-md" [(ngModel)]="tabsContent.parameterValue" name="paramValue{{i}}{{j}}" type="text">
+                <label>{{tabsContent.parameterDisplayName}}</label>
+                <i class="form-group__bar"></i>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <button type="submit" class="btn btn-primary waves-effect mr-2">Submit</button>
+              <button type="reset" class="btn btn-info waves-effect" (click)="reset();">Reset</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <div class="card p-3" *ngIf="showTable">
+    <div class="table-responsive">
+      <div id="data-table_wrapper" class="">
+        <table id="example" class="table table-sm mt-2 mb-2" role="grid" aria-describedby="data-table_info">
+          <thead class="ui-sortable thead-inverse">
+            <tr class="ui-sortable-handle" style="border-bottom: 1px solid #e0e0e0;">
+              <th *ngFor="let relationalHeaderColumn of relationalSearchDTO.resultsTableHeader">
+                <b>{{ relationalHeaderColumn }}</b>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="ui-sortable">
+            <tr *ngFor="let relationalInputRow of relationalSearchDTO.results">
+              <td *ngFor="let relationalInputColumn of relationalInputRow">
+                <p class="mb-0">{{ relationalInputColumn }}</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

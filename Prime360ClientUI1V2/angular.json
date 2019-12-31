@@ -1,0 +1,155 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "Prime360ClientUI1V2": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/Prime360ClientUI1V2",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/material-design-iconic-font/dist/css/material-design-iconic-font.min.css",             
+              "./node_modules/animate.css/animate.min.css",
+              "./node_modules/jquery.scrollbar/jquery.scrollbar.css",
+              "./node_modules/nouislider/distribute/nouislider.min.css",
+              "./node_modules/toastr/build/toastr.min.css",
+              "./node_modules/flatpickr/dist/flatpickr.css",
+              "./node_modules/datatables.net/css/jquery.dataTables.css",
+              "./node_modules/datatables.net/css/fixedColumns.dataTables.min.css",                          
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css",
+              "src/app.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",              
+              "./node_modules/popper.js/dist/umd/popper.min.js",
+              "./node_modules/datatables.net/js/jquery.dataTables.js",
+              "./node_modules/datatables.net/js/dataTables.fixedColumns.min.js",                        
+              "./node_modules/tether/dist/js/tether.min.js",
+              "./node_modules/waves/dist/waves.min.js",
+              "./node_modules/jquery.scrollbar/jquery.scrollbar.min.js",
+              "./node_modules/jquery-scroll-lock/jquery-scrollLock.min.js",
+              "./node_modules/nouislider/distribute/nouislider.min.js",
+              "./node_modules/flot/jquery.flot.js",
+              "./node_modules/flot/jquery.flot.pie.js",
+              "./node_modules/flot/jquery.flot.resize.js",
+              "./node_modules/flot/curvedLines.js",
+              "./node_modules/flot/pie.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap-notify.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "Prime360ClientUI1V2:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "Prime360ClientUI1V2:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "Prime360ClientUI1V2:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "Prime360ClientUI1V2-e2e": {
+      "root": "e2e/",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "Prime360ClientUI1V2:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "Prime360ClientUI1V2:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "Prime360ClientUI1V2"
+}

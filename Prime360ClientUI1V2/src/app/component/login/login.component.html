@@ -1,0 +1,81 @@
+
+  <div class="login_screen">
+      <div class="login_image">
+          <img src="assets/logo-header.png"><br>
+          <h5>Posidex Technologies Pvt Ltd</h5>
+      </div>
+      <div class="page-loader__spinner">
+        <svg viewBox="25 25 50 50">
+          <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+      </div>
+      <div class="card">
+        <div class="card_header">
+          <div class="login_logo">
+            <img src="assets/logo1.png">
+          </div>
+        </div>
+        <div class="login_form p-3">
+          <form [formGroup]="formGroup" novalidate (ngSubmit)="login()">
+            <div class="row mb-0">
+              <div class="col-lg-12 col-md-12">
+                <div class="">
+                    <div class="form-group form-group--float mt-3 mb-2" style="width:100%;overflow:auto;" [ngClass]="{
+                      'has-danger': formGroup.controls.userId.invalid && (formGroup.controls.userId.dirty || formGroup.controls.userId.touched),
+                      'has-success': formGroup.controls.userId.valid && (formGroup.controls.userId.dirty || formGroup.controls.userId.touched)
+                      }">
+                      <i class="zmdi zmdi-account" style="width:5%;float:left;padding: 10px;"></i>
+                      <div class="" style="width: 90%;float:left;margin-left: 10px;">
+                          
+                        <input type="text" [(ngModel)]="loginuser.userId" style="border-bottom:1px solid #ccc;" formControlName="userId" id="text_id" name="text"
+                        class="form-control form-control-md" placeholder="Enter UserId"> 
+                        <i class="form-group__bar" style="left:30px;width:90%;"></i>
+                      </div>
+                    </div>
+                    <div class="form-control-feedback field_error " *ngIf="formGroup.controls.userId.errors && (formGroup.controls.userId.dirty || formGroup.controls.userId.touched)">
+                        <p *ngIf="formGroup.controls.userId.errors.required" class="text-danger">Please Enter the UserId</p>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <div class="form-group form-group--float mt-2 mb-0" style="width:100%;overflow:auto;" [ngClass]="{
+                      'has-danger': formGroup.controls.password.invalid && (formGroup.controls.password.dirty || formGroup.controls.password.touched),
+                      'has-success': formGroup.controls.password.valid && (formGroup.controls.password.dirty || formGroup.controls.password.touched)
+                      }">
+                      <i class="zmdi zmdi-lock" style="width:5%;float:left;padding: 10px;"></i>
+                      <div class="" style="width: 90%;float:left;margin-left: 10px;">
+                        <input type="password" minlength="minNum" maxlength="maxNum" [(ngModel)]="loginuser.password" style="border-bottom:1px solid #ccc;" formControlName="password" id="password-field" name="password"
+                        class="form-control form-control-md" placeholder="Enter Password">
+                        <i class="form-group__bar" style="left:30px;width:90%;"></i>  
+                      </div>
+                      
+                    </div>
+                    <div class="form-control-feedback field_error" *ngIf="formGroup.controls.password.errors && (formGroup.controls.password.dirty || formGroup.controls.password.touched)">
+                      <p *ngIf="formGroup.controls.password.errors.required" class="text-danger">Please Enter the Password</p>
+                    </div>
+                    <div class="form-control-feedback field_error mt-2">
+                        <p *ngIf="formGroup.controls.password.errors?.minlength" class="text-danger">
+                          Password must be at least {{minNum}} characters long.
+                        </p>
+                        <p *ngIf="formGroup.controls.password.errors?.maxlength" class="text-danger">
+                          Password can be max {{maxNum}} characters long.
+                        </p>
+                      </div>
+                </div>
+                
+              </div>
+            </div>
+            <div class="row mb-0" style="margin-top:5%;">
+              <div class="col-lg-12 col-md-12">
+                <div class="form-group mb-0 text-center">
+                  <button type="submit" [disabled]="!formGroup.valid"  class="btn btn-primary waves-effect mr-2" style="width:auto;">Login</button>
+                  <button type="reset" class="btn btn-default waves-effect">Reset</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+  
+  

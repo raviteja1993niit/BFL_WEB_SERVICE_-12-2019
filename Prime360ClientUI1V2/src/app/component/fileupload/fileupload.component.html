@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 ml-10">
+      <div class="row">
+        <div class="col-lg-3 col-md-3">
+          <header class="content__title mb-0 mt-2">
+            <h1 class="text-primary">File Upload</h1>
+          </header>
+        </div>
+
+        <div class="col-lg-9 col-md-9">
+          <button type="button" (click)="getHeader();" class="mt-2 btn btn-primary waves-effect fileupload_next_button">Next
+            <i class="zmdi zmdi-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="card p-3 mb-0">
+        <div class="row">
+          <div class="col-md-4 col-sm-4">
+            <div class="form-group mb-0" style="width:100%;">
+              <label style="width:20%;float:left;margin-top:1rem;" for="exampleFormControlFile1">File Upload</label>
+              <input style="width:80%;float:left;" (change)="selectFile($event)" name="uploadedFileName" type="file" class="form-control-file file_txt"
+                id="exampleFormControlFile1">
+            </div>
+          </div>
+          <div class="col-md-2 col-sm-2">
+            <button type="submit" (click)="submitUser()" style="margin-top:0.7rem;" class="btn btn-info waves-effect">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3 fileupload_datatable">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div *ngIf=!isLoading>
+        <div class="card p-3 mb-3">
+          <div class="table-responsive">
+            <div id="data-table_wrapper" class="">
+              <table id="example1" datatable [dtOptions]="dtOptions" class="table mb-0 dataTable table-hover mt-1 table-condensed table-sm"
+                role="grid" aria-describedby="data-table_info" style="width: 100%;">
+                <thead class="thead-inverse" *ngFor="let headVal of fileUploadedData; index as i">
+                  <tr *ngIf=" i == 0">
+                    <th *ngFor="let head of headVal">
+                      {{head}}
+                    </th>
+                  </tr>
+
+                </thead>
+                <tbody>
+                  <!--for displaying table data(dynamic)-->
+                  <tr *ngFor="let columnsVal of fileUploadedData; index as i">
+                    <td *ngFor="let rowsVal of columnsVal">
+                      <div *ngIf="i > 0">
+                        {{rowsVal}}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+
+  </div>
+</div>

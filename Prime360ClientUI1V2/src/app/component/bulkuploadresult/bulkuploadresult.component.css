@@ -1,0 +1,31 @@
+.paginate_button
+{
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    cursor:pointer;
+}
+.dataTable
+{
+    margin: 5px 0 5px;
+}
+.paginate_button:not(.current):not(.disabled):focus, .paginate_button:not(.current):not(.disabled):hover {
+    background-color: #54bbff;
+    color: #ffffff;
+}
+.select
+{
+    border: 1px solid #ccc;
+    
+    padding: 0 5px;
+}
+.select::before
+{
+    top:18px;
+}
+.select .form-control
+{
+    border-bottom: 0;
+    height: 25px;
+    padding: 0;
+}

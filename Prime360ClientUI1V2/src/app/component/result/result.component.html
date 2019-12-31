@@ -1,0 +1,250 @@
+
+
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-mg-12 col-sm-12">
+
+      <div class="menu">
+        <header class="content__title mb-0">
+          <h1>Source Demographics </h1>
+        </header>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-md-6"></div>
+    <div class="col-lg-1 col-md-1"></div>
+    <div class="col-lg-5 col-md-5">
+         <div class="form-group float-right form-group--select mb-1" style="width:100%;">
+        <label style="width: 30%;float: left;margin-top: 10px; text-align: right; padding-right: 10px;">RequestId
+          </label>
+        <div class="input-group" style="width: 70%;float: left;">
+
+          <input type="text" id="searchvalue" placeholder="Select RequestId" class="requestid_txtbox" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto"
+            [(ngModel)]="requestId" (keydown)="onKeydown($event)">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="getRecordsBasedOnId(requestId)">
+              {{option}}
+          </mat-option>
+          </mat-autocomplete>
+        </div>
+      </div>
+
+  </div>   
+
+  <div class="row mb-3 mt-3 card pb-4">
+
+    <div class="col-lg-12 col-md-12">
+
+
+      <div class="mt-3 mb-4">
+
+        <div class="card p-3 mb-2">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="row ">
+                  <table class="table table-hover table-sm">
+                      <thead class="">
+                        <tr>
+                          <th scope="col">Request ID</th>
+                          <th scope="col">Appin No</th>
+                          <th scope="col">Cust No</th>
+                          <th scope="col">Seg No</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Pan </th>
+                          <th scope="col">DOB</th>
+                          <th scope="col">Cust Status</th>
+    
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="state">
+<td>{{nspRequestEntity.request_id}}</td>
+<td>{{nspRequestEntity.application_no}}</td>
+<td>{{nspRequestEntity.customer_no}}</td>
+<td>{{nspRequestEntity.segment_no}}</td>
+<td>{{nspRequestEntity.name}}</td>
+<td>{{nspRequestEntity.pan}}</td>
+<td>{{nspRequestEntity.dob1}}</td>
+<td>{{nspRequestEntity.customer_status}}</td>
+              </tr>
+              </tbody>
+              </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div *ngIf="isLoading">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3 text-center"></div>
+          <div class="row mt-0">
+            <div class="page-loader__spinner">
+              <svg viewBox="25 25 50 50">
+                hi
+                <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf=!isLoading>
+
+      <div class="table-responsive card p-2">
+        <div id="data-table_wrapper">
+
+          <table id="example1" datatable [dtOptions]="dtOptions" class="table mt-3 mb-3 dataTable table-hover table-condensed table-sm">
+            <thead class="thead-inverse">
+                <!-- <table id="example1" class="table mt-3 mb-3 dataTable table-hover table-condensed table-sm">
+                    <thead class="thead-inverse"> -->
+                      
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">DOB</th>
+                <th scope="col">AADHAAR NO</th>
+                <th scope="col">AppNo</th>
+                <th scope="col">REGISTRATION</th>
+                <th scope="col">Requested Id</th>
+                <th scope="col">Phone No</th>
+                <th scope="col">Pan</th>
+                
+                <th scope="col">Landmark</th>
+                <th scope="col">Area</th>
+                <th scope="col">City</th>
+                <th scope="col">Pin</th>
+                <th scope="col">Address Type</th>
+                <th scope="col">CIN</th>
+                <th scope="col">DIN</th>
+                <th scope="col">CA no</th>
+                <th scope="col">Phone Type</th>
+                <th scope="col">Cust No</th>
+                <th scope="col">Seg No</th>
+                <th scope="col">Cust Status</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of nspRequestResultsEntity;">
+
+                <td>{{data.name}}</td>
+                <td>{{data.dob}}</td>
+                <td>{{data.aadhaar}}</td>
+                <td>{{data.application_no}}</td>
+                <td>{{data.registration_no}}</td>
+                <td>{{data.requestId}}</td>
+                <td>{{data.phone}}</td>
+                <td>{{data.pan}}</td>
+                
+                <td>{{data.landmark}}</td>
+                <td>{{data.area}}</td>
+                <td>{{data.city}}</td>
+                <td>{{data.pin}}</td>
+                <td>{{data.address_type}}</td>
+                <td>{{data.cin}}</td>
+                <td>{{data.din}}</td>
+                <td>{{data.ca_number}}</td> 
+                <td>{{data.phone_type}}</td>
+                <td>{{data.customer_no}}</td>
+                <td>{{data.segment}}</td>
+                <td>{{data.customer_status}}</td>
+              
+                <td *ngIf="addressIsThere">
+                    
+                    {{"No Address Found"}}
+                  
+
+                </td>
+                <td *ngIf=!addressIsThere>
+                    
+                    <a (click)="getAddresses(data)" data-toggle="modal" data-target="#myModal"><u>View Address</u></a>
+                         
+                    
+
+                </td>
+
+              </tr>
+             
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+
+
+
+      </div>
+  
+       <div>
+       
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">All Addresses</h4>
+      </div>
+      <div class="modal-body">
+          <div class="table-responsive card p-2">
+          
+  
+            <table id="example1"  class="table mt-3 mb-3 dataTable table-hover table-condensed table-sm">
+              <thead class="thead-inverse">
+                  <!-- <table id="example1" class="table mt-3 mb-3 dataTable table-hover table-condensed table-sm">
+                      <thead class="thead-inverse"> -->
+                        
+                <tr>
+                  <th scope="col">CONTACT_ADDRESS</th>
+                  <th scope="col">EMERGENCY_ADDRESS</th>
+                  <th scope="col">OFFICE_ADDRESS</th>
+                  <th scope="col">PERMANENT_ADDRESS</th>
+                  <th scope="col">POSTAL_ADDRESS</th>
+                  <th scope="col">PREFERRED_ADDRESS</th>
+                  <th scope="col">PRESENT_ADDRESS</th>
+                  <th scope="col">RESIDENCE_ADDRESS</th>
+                  
+                  <th scope="col">TEMPORARY_ADDRESS</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="state2">
+  
+                  <td>{{addresses.contact_address}}</td>
+                  <td>{{addresses.emergency_address}}</td>
+                  <td>{{addresses.office_address}}</td>
+                  <td>{{addresses.permanent_address}}</td>
+                  <td>{{addresses.postal_address}}</td>
+                  <td>{{addresses.preferred_address}}</td>
+                  <td>{{addresses.present_address}}</td>
+                  <td>{{addresses.residence_address}}</td>
+                  
+                  <td>{{addresses.temporary_address}}</td>
+  
+                </tr>
+               
+              </tbody>
+            </table>
+  
+          <!-- </div> -->
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    </div> 
+
+  </div>
