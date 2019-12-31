@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                     http://www.springframework.org/schema/beans/spring-beans.xsd
+                     http://www.springframework.org/schema/jms
+                     http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+
+<!-- 	<bean id="dbPropSource" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>props/mapping.properties
+				</value>
+			</list>
+		</property>
+	</bean>  
+	<bean id="NoSqlDataSource" destroy-method="close"
+		class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${database.driverClassName}" />
+		<property name="url" value="${database.url}" />
+		<property name="username" value="${database.username}" />
+		<property name="password" value="${database.password}" />
+		<property name ="defaultAutoCommit" value = "false" />
+		<property name="maxTotal" value="100"/>
+		<property name="maxIdle" value="100"/>
+	</bean> -->
+	<bean class="posidex.aqjms.spring.OracleAqConnectionFactoryInitialiser" id="aqConnectionFactoryInitialiser">
+    <property name="URL" value="jdbc:oracle:thin:@192.168.1.148:1524:pdborcl"/>
+    <property name="userName" value="bajaj_migration2"/>
+    <property name="password" value="uh85Snm/1Ew="/>
+  </bean>
+  <bean factory-bean="aqConnectionFactoryInitialiser" factory-method="createConnectionFactory" id="psxAmqFactory"/>
+
+  <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <property name="connectionFactory" ref="psxAmqFactory"/>
+  <!--   <property name="defaultDestination" ref="PRIMEMATCH_QUEUE"/> -->
+    <property name="receiveTimeout" value="3000"/>
+  </bean>	
+</beans>
